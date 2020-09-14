@@ -1,0 +1,81 @@
+
+
+
+<!DOCTYPE html>
+<html>
+
+<style>
+input[type=text], select {
+  width: 60%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 30%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.div1{
+  padding-left: 23px;
+}
+
+
+.div3{
+  padding-left: 29px;
+}
+
+
+.div2 {
+width: 400px;
+height: 250px;
+padding: 50px;
+border: 1px solid red;
+margin-left: 500px;
+margin-top: 200px;
+}
+
+</style>
+<body>
+
+  {% for message in messages%}
+  <h4 style="color:red; text-align:center; ">{{message}}</h4>
+  {%endfor%}
+
+<div class="div2">
+  <form action="/sharefinal" method="post">
+    {% csrf_token %}
+    <div class="div1">
+
+
+    <label for="fname">Book Name</label>
+    <input type="text" id="fname" name="sharefile" value={{file}} readonly>
+        </div>
+    <br><br>
+    <div class="div3">
+
+
+    <label for="lname">User Name</label>
+    <input type="text" id="lname" name="username" placeholder="username" required>
+       </div>
+   <br><br>
+    <input type="submit"  style="margin-left:140px;" value="Submit">
+  </form>
+</div>
+
+</body>
+</html>

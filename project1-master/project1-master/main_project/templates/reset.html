@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="{% static "signup1.css"%}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+
+<style media="screen">
+  body{
+    background-color: rgb(70, 65, 74);
+  }
+</style>
+
+  </head>
+  <body>
+
+      <form action="check" class="login-form" method="post">
+        <h1>Reset Password</h1>
+        {% csrf_token %}
+        {% for message in messages%}
+        <h4 style="color:red; text-align:center; ">{{message}}</h4>
+        {%endfor%}
+        <div class="txtb">
+          <input type="test" name="uname" value={{uname}}  readonly>
+          <span data-placeholder="Username*"></span>
+        </div>
+        <div class="txtb">
+          <input type="email" name="email" value={{email}}  readonly>
+          <span data-placeholder="Email*"></span>
+        </div>
+          <div class="txtb">
+          <input type="password" name="password" placeholder="New Password" required>
+          <span data-placeholder="New Password*"></span>
+        </div>
+
+        <div class="txtb">
+          <input type="password" name="password1" placeholder="Re-Enter New Password" required>
+          <span data-placeholder="Re-Enter New Password*"></span>
+        </div>
+
+        <input type="submit" class="logbtn" value="Reset">
+
+
+
+      </form>
+
+      <script type="text/javascript">
+      $(".txtb input").on("focus",function(){
+        $(this).addClass("focus");
+      });
+
+      $(".txtb input").on("blur",function(){
+        if($(this).val() == "")
+        $(this).removeClass("focus");
+      });
+
+      </script>
+
+
+  </body>
+</html>

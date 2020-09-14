@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Exo&display=swap" rel="stylesheet">
+
+  <style media="screen">
+  .navbar-custom {
+              background-color: rgb(70, 65, 74);
+            }
+
+  table {
+    border-collapse: collapse;
+    width: 50%;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  .table_align {
+
+    margin: 25px 50px 75px 380px;
+  }
+
+a { color:	#FFFFFF; }
+
+
+      .center {
+        text-align: center;
+
+        border: 1.5px solid green;
+        width: 500px;
+        height: 27px;
+        border-radius: 25px;
+        margin-left: 460px;
+        margin-top: 40px;
+      }
+
+
+  </style>
+
+
+
+  </head>
+  <body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light  navbar-custom">
+      <td></td>
+    <a class="navbar-brand" href="/mybooks" style="color:white">My Cloud Books</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <form class="form-inline my-2 my-lg-0" action="/sharedsearch" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    </div>
+
+    <a href="/mybooks"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:10px;">My Books</button> </a><br> <br>
+    <a href="/sharedfiles"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:10px;">Received Books</button> </a><br>
+    <a href="/chief"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:10px;">My Account</button> </a><br>
+    <a href="/accounts/logout"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:10px;">Logout</button></a>
+
+   </nav>
+
+
+
+   {% for message in messages%}
+   <h4 style="color:red; text-align:center; ">{{message}}</h4>
+   {%endfor%}
+
+
+
+
+   {%if data%}
+
+
+   {% csrf_token %}
+   <table class="table_align">
+     {% csrf_token %}
+   {%for i in data%}
+     <tr>
+       <td><i class="fa fa-file-pdf-o" style="font-size:36px"></i></td>
+       <td></td>
+     <form class="" action="/shareddownload" method="post">
+       <div class="font-family: 'Exo', sans-serif;">
+
+
+     <td class="font-family: 'Exo', sans-serif;"> <b >{{i.shared_filename}}</b></td>
+        </div>
+      <td></td>
+      <td></td>
+
+     <div class="font-family: 'Exo', sans-serif;">
+       <td style="font-family: 'Exo', sans-serif;">  sharing to {{i.receiver_name}} </td>
+       </div>
+      <td></td>
+     <td></td>
+     <td> </td>
+       {% csrf_token %}
+
+     </form>
+     <td></td>
+     <form  action="/stopreceiving" method="post">
+     <td><input type="hidden"  name="filename" value={{i.shared_filename}}></td>
+     <td> <input type="hidden" name="receiver" value={{i.receiver_name}}> </td>
+     {% csrf_token %}
+     <td><input type="submit" class="btn btn-info" name="" value="Stop Sharing"></td>
+        </form>
+   <td></td>
+
+
+     </tr>
+
+     {%endfor%}
+   </table>
+   {%else%}
+   <div class="center">
+     <p>you have not shared books</p>
+   </div>
+   {%endif%}
+
+
+  </body>
+</html>

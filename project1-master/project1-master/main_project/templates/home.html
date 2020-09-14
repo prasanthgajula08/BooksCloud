@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+    <style media="screen">
+
+
+
+
+
+
+
+    .navbar-custom {
+                background-color: rgb(70, 65, 74);
+              }
+    table {
+      border-collapse: collapse;
+      width: 50%;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    .table_align {
+
+      margin: 25px 50px 75px 380px;
+    }
+
+
+    .center {
+      text-align: center;
+
+      border: 1.5px solid green;
+      width: 500px;
+      height: 27px;
+      border-radius: 25px;
+      margin-left: 460px;
+
+    }
+  a { color:	#FFFFFF; }
+
+    </style>
+    <title></title>
+  </head>
+  <body >
+
+    {% csrf_token %}
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom ">
+  <a class="navbar-brand" href="" style="color:white">My Cloud Books</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <form class="form-inline my-2 my-lg-0" action="/search" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
+    </form>
+ </div>
+ {% if user.is_authenticated %}
+ <a href="/shareddata"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:10px;">Shared Books</button> </a><br>
+ <a href="/sharedfiles"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:10px;">Received Books</button> </a><br>
+<a href="/chief"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:10px;">My Account</button> </a><br>
+<a href="/accounts/logout"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:10px;">Logout</button></a>
+ {%else%}
+<a href="/login"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:10px;">Login</button><br></a>
+ <a href="/accounts/signup"><button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:10px;">SignUp</button><br></a>
+ {%endif%}
+</nav>
+<br>
+
+ {% if user.is_authenticated %}
+<div class="container">
+<a href="#"><button type="button" class="btn btn-primary btn-lg"  data-toggle="modal" data-target="#myModal">Upload Book</button></a>
+
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+  <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+
+          <form action="/upload" method="post" enctype="multipart/form-data">
+            {% csrf_token %}<br><br>
+            <input type="text" name="book"   style="margin-left:100px; border-radius:10px;" value="" size="38" placeholder="Enter Book Name" required>
+            <br><p style="margin-left:180px;">*book name must be unique</p> <br>
+          <input type="file" class="new-button" name="document"  value="" style="margin-left:180px;" accept="application/pdf, application/vnd.ms-excel,application/msword,application/vnd.ms-powerpoint" required><br><br>
+
+            <div class="modal-footer">
+          <input type="submit" name="" value="Submit" class="btn btn-secondary"  >
+            </div>
+          </form>
+  </div>
+  </div>
+    </div>
+  </div>
+
+{%endif%}
+
+  {% for message in messages%}
+  <h4 style="color:red; text-align:center; ">{{message}}</h4>
+  {%endfor%}
+
+{% if user.is_authenticated %}
+<br><br><br>
+{%else%}
+
+<h1 style="font-size:500%;text-align:center;margin-top:200px; color:rgb(0,0,0);">My Cloud Books</h1>
+
+{%endif%}
+
+{% if user.is_authenticated %}
+{%if data%}
+
+
+{% csrf_token %}
+<table class="table_align" >
+  {% csrf_token %}
+{%for i in data%}
+  <tr>
+    <td><i class="fa fa-file-pdf-o" style="font-size:36px"></i></td>
+    <td></td>
+
+  <td> <b>{{i.filename_real}}</b></td>
+   <td></td>
+   <td></td>
+   </tfoot>
+
+    {% csrf_token %}
+  <td><button type="button" class="btn btn-success" name="button"><a href={{i.url}}>Download</a></button></td>
+
+  </form>
+  <td></td>
+  <form  action="/remove" method="post">
+  <td><input type="hidden"  name="filename1" value={{i.filename_real}}></td>
+  {% csrf_token %}
+  <td><input type="submit" class="btn btn-danger" name="" value="Remove"></td>
+     </form>
+<td></td>
+     <form  action="/share" method="post">
+     <td><input type="hidden"  name="sharefile" value={{i.filename_real}}></td>
+     {% csrf_token %}
+     <td><input type="submit" class="btn btn-info" name="" value="Share"></td>
+        </form>
+
+  </tr>
+
+  {%endfor%}
+</table>
+{%else%}
+
+{%endif%}
+{%endif%}
+
+
+
+  </body>
+</html>

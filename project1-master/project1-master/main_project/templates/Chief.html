@@ -1,0 +1,141 @@
+
+
+
+
+
+
+  <!DOCTYPE html>
+  {%load static%}
+  <html lang="en" dir="ltr">
+    <head>
+      <meta charset="utf-8">
+      <title></title>
+      
+      <link rel="stylesheet" href="{% static "signup.css" %}">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+<style>
+      .sidenav {
+        height: 100%;
+        width: 160px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color:rgb(70, 65, 74);
+        overflow-x: hidden;
+        padding-top: 20px;
+      }
+
+      .sidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+      }
+
+      .sidenav a:hover {
+        color: #f1f1f1;
+      }
+
+      .main {
+        margin-left: 160px; /* Same as the width of the sidenav */
+        font-size: 28px; /* Increased text to enable scrolling */
+        padding: 0px 10px;
+      }
+
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+
+</style>
+
+    </head>
+    <body>
+
+
+
+
+      <div class="sidenav"style="font-family: 'Philosopher', sans-serif;">
+        <a href="/mybooks">  <font size="4">Home</font></a>
+
+        <a href="/thisis"><font size="4">Bin</font></a>
+        <a href="/thisis"><font size="4">Contact</font></a>
+      </div>
+        <form action="/profileresetpassword" class="login-form" method="post">
+          {% csrf_token %}
+          <h1>My Profile</h1>
+
+            <table cellpadding="10">
+              <col width="100">
+              <tr>
+                <input type="hidden" name="username" value={{username}}>
+                <td> <b>Username </b> </td>
+                <td> {{username}}</td>
+              </tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+
+            </tr>
+            <tr>
+              <tr>
+                <tr>
+                  <tr>
+                    <tr>
+                      <tr>
+                        <tr>
+                          <tr>
+                            <tr>
+                              <tr>
+                                <tr>
+                                  <tr>
+                                    <tr>
+
+                                    </tr>
+                                  </tr>
+                                </tr>
+                              </tr>
+                            </tr>
+                          </tr>
+                        </tr>
+                      </tr>
+                    </tr>
+                  </tr>
+                </tr>
+              </tr>
+            </tr>
+
+              <tr>
+             <input type="hidden" name="email" value={{email}}>
+                <td> <b>Email </b> </td>
+                <td>{{email}}</td>
+              </tr>
+
+
+
+        </table>
+         <br><br><br><br><br><br>
+
+<input type="submit" class="logbtn" value="Reset Password">
+
+  </form>
+
+
+        <script type="text/javascript">
+        $(".txtb input").on("focus",function(){
+          $(this).addClass("focus");
+        });
+
+        $(".txtb input").on("blur",function(){
+          if($(this).val() == "")
+          $(this).removeClass("focus");
+        });
+
+        </script>
+
+
+    </body>
+  </html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+   <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet"> -->
+  <!--
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Sriracha&display=swap" rel="stylesheet"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!--
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.button {
+  background-color: rgb(181, 63, 232);
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 20%;
+  margin-top: 15px;
+  margin-left: -90px;
+}
+
+
+
+
+
+
+table {
+  border-collapse: collapse;
+  width: 50%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+.table_align {
+
+  margin: 25px 50px 75px 400px;
+}
+
+
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: grey;
+}
+
+li {
+  float: left;
+}
+
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+
+
+</style>
+</head>
+<body>
+    {% csrf_token %}
+
+
+
+
+<ul>
+  <li><a  href="#" style="font-family: 'Cairo', sans-serif;">My Book Store</a></li>
+  {% if user.is_authenticated %}
+  <li><a href="/accounts/logout" style="font-family: 'Montserrat', sans-serif; float: right;">Logout</a></li>
+  <li class="dropdown" style="float: right">
+    <a href="#" class="dropbtn" >Dropdown</a>
+    <div class="dropdown-content">
+   <select class="" name="">
+  <option value="kumar"></option>
+  <option value="avvaru"></option>
+      </select>
+    </div>
+  </li>
+{%else%}
+
+<li><a href="/login" style="font-family: 'Montserrat', sans-serif;">Login</a></li>
+
+<li><a href="/accounts/signup" style="font-family: 'Montserrat', sans-serif;">Sign Up</a></li>
+
+{%endif%}
+
+</ul>
+
+
+
+
+{% for message in messages%}
+<h4 style="color:red; text-align:center; ">{{message}}</h4>
+{%endfor%}
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <button type="button" class=" button" style="font-family: 'Montserrat', sans-serif;" data-toggle="modal" data-target="#myModal">  <span class="glyphicon glyphicon-plus"></span>New</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="text-align:center;font-family: 'Cairo', sans-serif;">Upload Book</h4><br><br>
+        </div>
+
+
+
+            <form action="/upload" method="post" enctype="multipart/form-data">
+              {% csrf_token %}<br><br>
+              <input type="text" name="book"   style="margin-left:200px; margin-left:130px;" value="" size="38" placeholder="Enter Book Name" required>
+              <br><p style="margin-left:200px; margin-left:130px;">*book name must be unique</p> <br>
+            <input type="file" class="new-button" name="document"  value="" style="margin-left:200px; margin-left:130px;" accept="application/pdf, application/vnd.ms-excel,application/msword,application/vnd.ms-powerpoint" required><br><br>
+
+              <div class="modal-footer">
+            <input type="submit" name="" value="Submit" class="btn btn-secondary"  >
+              </div>
+            </form>
+
+
+
+
+
+
+  </div>
+
+
+    </div>
+  </div>
+
+</div>
+
+
+{%if data%}
+
+{% csrf_token %}
+<table class="table_align">
+  {% csrf_token %}
+{%for i in data%}
+  <tr>
+  <form class="" action="/delete" method="post">
+  <td> <h4><b>{{i.filename_real}}</b></h4></td>
+
+  <td> <input type="hidden"  name="filename" value={{i.filename_real}}></td>
+    {% csrf_token %}
+  <td><input type="submit" class="btn btn-success" name="" value="Download"></td>
+  </form>
+    <td></td>
+  <form  action="/remove" method="post">
+  <td><input type="hidden"  name="filename1" value={{i.filename_real}}></td>
+  {% csrf_token %}
+  <td><input type="submit" class="btn btn-danger" name="" value="Remove"></td>
+     </form>
+
+  </tr>
+
+  {%endfor%}
+</table>
+
+{%endif%}
+
+</body>
+</html>

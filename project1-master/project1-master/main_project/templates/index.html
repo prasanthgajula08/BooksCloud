@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static "signup.css"%}">
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+  </head>
+  <body style="background-color: rgb(70, 65, 74);">
+
+      <form action="/login" class="login-form" method="post">
+        <h1>Login</h1>
+        {% csrf_token %}
+        {% for message in messages%}
+        <h4 style="color:red; text-align:center; ">{{message}}</h4>
+        {%endfor%}
+        <div class="txtb">
+          <input type="text" name="uname" required>
+          <span data-placeholder="Username"></span>
+        </div>
+
+        <div class="txtb">
+          <input type="password" name="password" required>
+          <span data-placeholder="Password"></span>
+        </div>
+
+        <input type="submit" class="logbtn" value="Login">
+
+        <div class="bottom-text">
+          Don't have account? <a href="/accounts/signup">Sign up</a><br>
+            Forgot Password? <a href="/accounts/forgot">Reset</a>
+        </div>
+
+      </form>
+
+      <script type="text/javascript">
+      $(".txtb input").on("focus",function(){
+        $(this).addClass("focus");
+      });
+
+      $(".txtb input").on("blur",function(){
+        if($(this).val() == "")
+        $(this).removeClass("focus");
+      });
+
+      </script>
+
+
+  </body>
+</html>

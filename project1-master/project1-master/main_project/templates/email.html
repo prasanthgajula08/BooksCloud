@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static "signup.css" %}">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+
+      <form action="email" class="login-form" method="post">
+        <h1>Reset Password</h1>
+           {% csrf_token %}
+           {% for message in messages%}
+           <h4 style="color:red; text-align:center; ">{{message}}</h4>
+           {%endfor%}
+
+
+        <div class="txtb">
+          <input type="email" name="email" required>
+          <span data-placeholder="Email*"></span>
+        </div>
+
+
+
+        <input type="submit" class="logbtn" value="Send OTP">
+
+
+
+      </form>
+
+
+      <script type="text/javascript">
+      $(".txtb input").on("focus",function(){
+        $(this).addClass("focus");
+      });
+
+      $(".txtb input").on("blur",function(){
+        if($(this).val() == "")
+        $(this).removeClass("focus");
+      });
+
+      </script>
+
+
+  </body>
+</html>
